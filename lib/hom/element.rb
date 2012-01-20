@@ -9,7 +9,7 @@ module HOM
     def html
       start_tag = "<#{@tag_name}#{@attributes.html}>"
 
-      @content.nil? ? start_tag : "#{start_tag}#{escape(@content)}</#{@tag_name}>"
+      @content.nil? ? start_tag : "#{start_tag}#{encode(@content)}</#{@tag_name}>"
     end
 
     def to_s
@@ -28,16 +28,20 @@ module HOM
       string.respond_to?(:html_safe) ? string.html_safe : string
     end
 
-    def escape(object)
+    def encode(object)
       if object.is_a?(Array)
-        object.map { |item| escape(item) }.join
+        object.map { |item| encode(item) }.join
       elsif object.respond_to?(:html)
         object.html
       elsif object.respond_to?(:html_safe?) && object.html_safe?
         object.to_s
       else
-        CGI.escapeHTML(object.to_s)
+        escape(object)
       end
+    end
+
+    def escape(object)
+      CGI.escapeHTML(object.to_s)
     end
   end
 end
