@@ -2,8 +2,6 @@ require 'cgi'
 
 module HOM
   class Element
-    attr_reader :tag_name, :attributes
-
     def initialize(tag_name, attributes = nil, content = nil)
       @tag_name, @attributes, @content = tag_name, AttributeList.new.update(attributes), content
     end
@@ -18,17 +16,11 @@ module HOM
       html_safe(html)
     end
 
-    def method_missing(name, *args, &block)
-      if args.empty? && block.nil?
-        attribute = attributes.lookup(name)
-
-        unless attribute.nil? || attribute.value.nil?
-          return attribute.value
-        end
-      end
-
-      super name, *args, &block
+    def lookup(name)
+      @attributes.lookup(name)
     end
+
+    alias :[] :lookup
 
     private
 

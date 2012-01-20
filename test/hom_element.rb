@@ -39,8 +39,8 @@ class HOM::Element::TestCase < MiniTest::Unit::TestCase
   end
 
   def test_attribute_access
-    assert_equal :text, @i3.type
-    assert_equal 30, @i3.size
-    assert_raises(NoMethodError) { @i3.disabled }
+    assert_equal :text, @i3[:type].value
+    assert_equal 30, @i3[:size].value
+    assert_equal nil, @i3[:disabled].value
   end
 end
