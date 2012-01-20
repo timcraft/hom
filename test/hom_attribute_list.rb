@@ -19,35 +19,35 @@ class HOM::AttributeList::TestCase < MiniTest::Unit::TestCase
     @list.update(:disabled)
 
     assert_equal 1, @list.length
-    assert_equal :disabled, @list[0].name
-    assert_equal nil, @list[0].value
+    assert_equal :disabled, @list[:disabled].name
+    assert_equal nil, @list[:disabled].value
   end
 
   def test_update_with_hash
     @list.update({type: :text, size: 30})
 
     assert_equal 2, @list.length
-    assert_equal :type, @list[0].name
-    assert_equal :text, @list[0].value
-    assert_equal :size, @list[1].name
-    assert_equal 30, @list[1].value
+    assert_equal :type, @list[:type].name
+    assert_equal :text, @list[:type].value
+    assert_equal :size, @list[:size].name
+    assert_equal 30, @list[:size].value
   end
 
   def test_update_with_array
     @list.update([{type: :text}, :disabled])
 
     assert_equal 2, @list.length
-    assert_equal :type, @list[0].name
-    assert_equal :text, @list[0].value
-    assert_equal :disabled, @list[1].name
-    assert_equal nil, @list[1].value
+    assert_equal :type, @list[:type].name
+    assert_equal :text, @list[:type].value
+    assert_equal :disabled, @list[:disabled].name
+    assert_equal nil, @list[:disabled].value
   end
 
   def test_update_with_duplicate_symbols
     @list.update([:disabled, :disabled])
 
     assert_equal 1, @list.length
-    assert_equal :disabled, @list[0].name
-    assert_equal nil, @list[0].value
+    assert_equal :disabled, @list[:disabled].name
+    assert_equal nil, @list[:disabled].value
   end
 end

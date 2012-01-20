@@ -1,18 +1,28 @@
 module HOM
-  class AttributeList < Array
+  class AttributeList
+    def initialize
+      @index = {}
+    end
+
+    def length
+      @index.size
+    end
+
     def html
-      map(&:html).join
+      @index.values.map(&:html).join
     end
 
     def lookup(name)
-      detect { |object| object.name.to_s == name.to_s }
+      @index[name.to_s]
     end
+
+    alias :[] :lookup
 
     def set(name, value = nil)
       attribute = lookup(name)
 
       if attribute.nil?
-        self << Attribute.new(name, value)
+        @index[name.to_s] = Attribute.new(name, value)
       else
         attribute.value = value
       end
