@@ -7,8 +7,6 @@ module HOM
     end
 
     def html
-      start_tag = "<#{@tag_name}#{@attributes.html}>"
-
       @content.nil? ? start_tag : "#{start_tag}#{encode(@content)}</#{@tag_name}>"
     end
 
@@ -38,6 +36,10 @@ module HOM
       else
         escape(object)
       end
+    end
+
+    def start_tag
+      "<#{@tag_name}#{@attributes.html}>"
     end
 
     def escape(object)
