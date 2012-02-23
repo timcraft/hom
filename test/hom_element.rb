@@ -1,9 +1,7 @@
 require 'minitest/autorun'
 require 'active_support/core_ext/string/output_safety'
 
-$:.unshift 'lib'
-
-require 'hom'
+require_relative '../lib/hom'
 
 class HOM::Element::TestCase < MiniTest::Unit::TestCase
   def setup

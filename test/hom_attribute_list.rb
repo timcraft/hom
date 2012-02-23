@@ -1,8 +1,6 @@
 require 'minitest/autorun'
 
-$:.unshift 'lib'
-
-require 'hom'
+require_relative '../lib/hom'
 
 class HOM::AttributeList::TestCase < MiniTest::Unit::TestCase
   def setup
