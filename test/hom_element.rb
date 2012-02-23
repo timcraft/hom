@@ -7,7 +7,7 @@ class HOM::Element::TestCase < MiniTest::Unit::TestCase
   def setup
     @br = HOM::Element.new(:br)
     @i1 = HOM::Element.new(:input, :disabled)
-    @i2 = HOM::Element.new(:input, {type: :text, size: 30})
+    @i2 = HOM::Element.new(:input, {type: :text, size: 30, value: nil})
     @i3 = HOM::Element.new(:input, [{type: :text, size: 30}, :disabled])
     @h1 = HOM::Element.new(:h1, nil, '')
     @h2 = HOM::Element.new(:h2, nil, 'hello world')
@@ -20,7 +20,7 @@ class HOM::Element::TestCase < MiniTest::Unit::TestCase
   def test_stringification
     assert_equal '<br>', @br.to_s
     assert_equal '<input disabled>', @i1.to_s
-    assert_equal '<input type="text" size="30">', @i2.to_s
+    assert_equal '<input type="text" size="30" value="">', @i2.to_s
     assert_equal '<input type="text" size="30" disabled>', @i3.to_s
     assert_equal '<h1></h1>', @h1.to_s
     assert_equal '<h2>hello world</h2>', @h2.to_s
