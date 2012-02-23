@@ -4,10 +4,6 @@ module HOM
       @index = {}
     end
 
-    def length
-      @index.size
-    end
-
     def html
       @index.values.map(&:html).join
     end
