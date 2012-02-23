@@ -1,3 +1,5 @@
+require 'cgi'
+
 module HOM
   class AttributeList
     def initialize
@@ -5,23 +7,13 @@ module HOM
     end
 
     def html
-      @index.values.map(&:html).join
+      @index.map { |name, value| attribute_html(name, value) }.join
     end
 
-    def lookup(name)
-      @index[name.to_s]
-    end
+    Undefined = Class.new
 
-    alias :[] :lookup
-
-    def set(name, value = nil)
-      attribute = lookup(name)
-
-      if attribute.nil?
-        @index[name.to_s] = Attribute.new(name, value)
-      else
-        attribute.value = value
-      end
+    def set(name, value = Undefined)
+      @index[name.to_s] = value
     end
 
     def update(object)
@@ -37,6 +29,16 @@ module HOM
       end
 
       return self
+    end
+
+    private
+
+    def attribute_html(name, value)
+      value == Undefined ? " #{name}" : %( #{name}="#{escape value}")
+    end
+
+    def escape(object)
+      CGI.escapeHTML(object.to_s)
     end
   end
 end

@@ -22,9 +22,9 @@ class HOM::AttributeList::TestCase < MiniTest::Unit::TestCase
   end
 
   def test_update_with_hash
-    @list.update({type: :text, size: 30})
+    @list.update({type: :text, size: 30, value: nil})
 
-    assert_equal ' type="text" size="30"', @list.html
+    assert_equal ' type="text" size="30" value=""', @list.html
   end
 
   def test_update_with_array

@@ -14,12 +14,6 @@ module HOM
       html_safe(html)
     end
 
-    def lookup(name)
-      @attributes.lookup(name)
-    end
-
-    alias :[] :lookup
-
     private
 
     def html_safe(string)

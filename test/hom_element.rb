@@ -37,10 +37,4 @@ class HOM::Element::TestCase < MiniTest::Unit::TestCase
 
     assert '<span><br></span>', HOM::Element.new(:span, nil, '<br>'.html_safe).to_s
   end
-
-  def test_attribute_access
-    assert_equal :text, @i3[:type].value
-    assert_equal 30, @i3[:size].value
-    assert_equal nil, @i3[:disabled].value
-  end
 end
