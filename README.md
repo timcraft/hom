@@ -1,5 +1,5 @@
-HOM: A straightforward API for generating HTML programmatically
-===============================================================
+HOM: A straightforward API for generating HTML
+==============================================
 
 Motivation
 ----------
@@ -12,14 +12,15 @@ Usage
 -----
 
 Build up an object tree using `HOM::Element` objects. The first constuctor
-argument is a symbol representing the tag name, for example:
+argument is a symbol representing the tag name. For example, here's how you'd
+represent a line break element:
 
     HOM::Element.new(:br)
 
 
 The second constructor argument represents the element attributes, and can be
 nil, a single symbol/string, a hash, or an array of hashes and symbols/strings.
-For example:
+For example, here's how you'd represent some input elements:
 
     HOM::Element.new(:input, :disabled)
 
@@ -29,7 +30,8 @@ For example:
 
 
 The third constructor argument is the inner content, which can be a string,
-another element object, or an array of child items. For example:
+another element object, or an array of child items. For example, here's how
+you can represent elements with attributes:
 
     span = HOM::Element.new(:span, nil, '')
 
@@ -42,14 +44,15 @@ another element object, or an array of child items. For example:
     list = HOM::Element.new(:ul, nil, (1..3).map { |n| HOM::Element.new(:li, nil, n) })
 
 
-Use `HOM::Entity` objects for HTML entities; integer values for numeric entities
-and symbol/string values for named entities, for example:
+There's also a `HOM::Entity` class which you can use to represent HTML entities;
+integer values for numeric entities and symbol/string values for named entities,
+for example:
 
     HOM::Element.new(:span, nil, HOM::Entity.new(160))
 
     HOM::Element.new(:span, nil, HOM::Entity.new(:nbsp))
 
 
-Then call `#to_s` or `#html` on a `HOM::Element` object to return a string
-containing the generated HTML. `HOM::Element` objects are safe to use directly
+Calling `#to_s` or `#html` on a `HOM::Element` object will return a string
+containing the generated markup. `HOM::Element` objects are safe to use directly
 in Rails templates, all escaping is handled automatically.
