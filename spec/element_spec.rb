@@ -18,6 +18,16 @@ describe 'Element' do
     @ul = HOM::Element.new(:ul, nil, (1..3).map { |n| HOM::Element.new(:li, nil, n) })
   end
 
+  describe 'content query method' do
+    it 'should return false if the content is undefined' do
+      @br.content?.must_equal(false)
+    end
+
+    it 'should return true otherwise' do
+      @h1.content?.must_equal(true)
+    end
+  end
+
   describe 'to_s method' do
     it 'should return a string containing the correct markup' do
       @br.to_s.must_equal('<br>')

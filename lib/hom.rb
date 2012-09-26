@@ -34,6 +34,10 @@ module HOM
       @tag_name, @attributes, @content = tag_name, AttributeList.new.update(attributes), content
     end
 
+    def content?
+      @content != Undefined
+    end
+
     def to_s
       Encoding.safe_encode(self)
     end
@@ -88,11 +92,7 @@ module HOM
     end
 
     def self.encode_element(object)
-      if object.content == Undefined
-        start_tag(object)
-      else
-        "#{start_tag(object)}#{encode(object.content)}</#{object.tag_name}>"
-      end
+      object.content? ? start_tag(object) : "#{start_tag(object)}#{encode(object.content)}</#{object.tag_name}>"
     end
 
     def self.start_tag(element)
