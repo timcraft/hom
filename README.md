@@ -57,6 +57,6 @@ HOM::Element.new(:span, nil, HOM::Entity.new(160))
 HOM::Element.new(:span, nil, HOM::Entity.new(:nbsp))
 ```
 
-Calling `#to_s` or `#html` on a `HOM::Element` object will return a string
-containing the generated markup. `HOM::Element` objects are safe to use directly
-in Rails templates, all escaping is handled automatically.
+Calling `#to_s` on a `HOM::Element` object will return a string containing
+the generated markup. `HOM::Element` objects are safe to use directly in
+Rails templates, all escaping is handled automatically.
