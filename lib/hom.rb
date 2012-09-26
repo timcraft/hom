@@ -55,7 +55,15 @@ module HOM
     end
 
     def start_tag
-      "<#{@tag_name}#{@attributes.html}>"
+      "<#{@tag_name}#{encoded_attributes}>"
+    end
+
+    def encoded_attributes
+      @attributes.to_hash.map { |name, value| encode_attribute(name, value) }.join
+    end
+
+    def encode_attribute(name, value)
+      value == Undefined ? " #{name}" : %( #{name}="#{HOM.escape value}")
     end
   end
 
@@ -64,12 +72,12 @@ module HOM
       @index = {}
     end
 
-    def html
-      @index.map { |name, value| attribute_html(name, value) }.join
-    end
-
     def set(name, value = Undefined)
       @index[name.to_s] = value
+    end
+
+    def to_hash
+      @index
     end
 
     def update(object)
@@ -85,12 +93,6 @@ module HOM
       end
 
       return self
-    end
-
-    private
-
-    def attribute_html(name, value)
-      value == Undefined ? " #{name}" : %( #{name}="#{HOM.escape value}")
     end
   end
 
