@@ -1,6 +1,8 @@
 require 'cgi'
 
 module HOM
+  Undefined = Class.new
+
   class Entity
     attr_reader :value
 
@@ -65,8 +67,6 @@ module HOM
     def html
       @index.map { |name, value| attribute_html(name, value) }.join
     end
-
-    Undefined = Class.new
 
     def set(name, value = Undefined)
       @index[name.to_s] = value
