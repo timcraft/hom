@@ -82,7 +82,9 @@ module HOM
         object.map { |item| encode(item) }.join
       elsif object.is_a?(Element)
         encode_element(object)
-      elsif object.respond_to?(:html)
+      elsif object.respond_to?(:html) # TODO: REMOVE ME
+        Kernel.warn '[hom] defining #html on custom objects is deprecated, map the objects to elements instead'
+
         object.html
       elsif object.respond_to?(:html_safe?) && object.html_safe?
         object.to_s

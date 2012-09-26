@@ -52,4 +52,20 @@ describe 'Element' do
       @br.to_s.html_safe?.must_equal(true)
     end
   end
+
+  describe 'encoding objects with an html method' do # TODO: REMOVE ME
+    it 'should emit a deprecation warning' do
+      require 'mocha'
+
+      object = Object.new
+
+      def object.html; HOM::Element.new(:span, nil, 'html') end
+
+      div = HOM::Element.new(:div, nil, object)
+
+      Kernel.expects(:warn).with(regexp_matches(/defining #html on custom objects is deprecated/))
+
+      div.to_s.must_equal('<div><span>html</span></div>')
+    end
+  end
 end
