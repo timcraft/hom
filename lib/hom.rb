@@ -92,7 +92,7 @@ module HOM
     end
 
     def self.encode_element(object)
-      object.content? ? start_tag(object) : "#{start_tag(object)}#{encode(object.content)}</#{object.tag_name}>"
+      object.content? ? "#{start_tag(object)}#{encode(object.content)}</#{object.tag_name}>" : start_tag(object)
     end
 
     def self.start_tag(element)
