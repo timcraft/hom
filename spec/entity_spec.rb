@@ -25,9 +25,15 @@ describe 'Named entity' do
     end
   end
 
-  describe 'html method' do
-    it 'should return the correct markup' do
-      @entity.html.must_equal('&nbsp;')
+  describe 'to_s method' do
+    it 'should return the encoded html entity' do
+      @entity.to_s.must_equal('&nbsp;')
+    end
+  end
+
+  describe 'html_safe query method' do
+    it 'should return true' do
+      @entity.html_safe?.must_equal(true)
     end
   end
 end
@@ -55,9 +61,15 @@ describe 'Numeric entity' do
     end
   end
 
-  describe 'html method' do
-    it 'should return the correct markup' do
-      @entity.html.must_equal('&#160;')
+  describe 'to_s method' do
+    it 'should return the encoded html entity' do
+      @entity.to_s.must_equal('&#160;')
+    end
+  end
+
+  describe 'html_safe query method' do
+    it 'should return true' do
+      @entity.html_safe?.must_equal(true)
     end
   end
 end

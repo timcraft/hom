@@ -10,7 +10,7 @@ module HOM
       @value = value
     end
 
-    def html
+    def to_s
       numeric? ? "&\##{value};" : "&#{value};"
     end
 
@@ -21,49 +21,21 @@ module HOM
     def named?
       !numeric?
     end
+
+    def html_safe?
+      true
+    end
   end
 
   class Element
+    attr_reader :tag_name, :attributes, :content
+
     def initialize(tag_name, attributes = nil, content = Undefined)
       @tag_name, @attributes, @content = tag_name, AttributeList.new.update(attributes), content
     end
 
-    def html
-      @content == Undefined ? start_tag : "#{start_tag}#{encode(@content)}</#{@tag_name}>"
-    end
-
     def to_s
-      html_safe(html)
-    end
-
-    private
-
-    def html_safe(string)
-      string.respond_to?(:html_safe) ? string.html_safe : string
-    end
-
-    def encode(object)
-      if object.is_a?(Array)
-        object.map { |item| encode(item) }.join
-      elsif object.respond_to?(:html)
-        object.html
-      elsif object.respond_to?(:html_safe?) && object.html_safe?
-        object.to_s
-      else
-        HOM.escape(object)
-      end
-    end
-
-    def start_tag
-      "<#{@tag_name}#{encoded_attributes}>"
-    end
-
-    def encoded_attributes
-      @attributes.to_hash.map { |name, value| encode_attribute(name, value) }.join
-    end
-
-    def encode_attribute(name, value)
-      value == Undefined ? " #{name}" : %( #{name}="#{HOM.escape value}")
+      Encoding.safe_encode(self)
     end
   end
 
@@ -96,7 +68,51 @@ module HOM
     end
   end
 
-  def self.escape(object)
-    CGI.escapeHTML(object.to_s)
+  module Encoding
+    def self.safe_encode(object)
+      safe(encode(object))
+    end
+
+    def self.encode(object)
+      if object.is_a?(Array)
+        object.map { |item| encode(item) }.join
+      elsif object.is_a?(Element)
+        encode_element(object)
+      elsif object.respond_to?(:html)
+        object.html
+      elsif object.respond_to?(:html_safe?) && object.html_safe?
+        object.to_s
+      else
+        escape(object)
+      end
+    end
+
+    def self.encode_element(object)
+      if object.content == Undefined
+        start_tag(object)
+      else
+        "#{start_tag(object)}#{encode(object.content)}</#{object.tag_name}>"
+      end
+    end
+
+    def self.start_tag(element)
+      "<#{element.tag_name}#{encode_attributes(element)}>"
+    end
+
+    def self.encode_attributes(element)
+      element.attributes.to_hash.map { |name, value| encode_attribute(name, value) }.join
+    end
+
+    def self.encode_attribute(name, value)
+      value == Undefined ? " #{name}" : %( #{name}="#{escape value}")
+    end
+
+    def self.safe(string)
+      string.respond_to?(:html_safe) ? string.html_safe : string
+    end
+
+    def self.escape(object)
+      CGI.escapeHTML(object.to_s)
+    end
   end
 end
