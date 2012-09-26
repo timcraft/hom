@@ -14,6 +14,7 @@ describe 'Element' do
     @h3 = HOM::Element.new(:h3, nil, 'a && b, x > y')
     @h4 = HOM::Element.new(:h4, nil, 1234567890)
     @h5 = HOM::Element.new(:h5, nil, HOM::Element.new(:b, nil, 'how bold'))
+    @h6 = HOM::Element.new(:h6, nil, nil)
     @ul = HOM::Element.new(:ul, nil, (1..3).map { |n| HOM::Element.new(:li, nil, n) })
   end
 
@@ -28,6 +29,7 @@ describe 'Element' do
       @h3.to_s.must_equal('<h3>a &amp;&amp; b, x &gt; y</h3>')
       @h4.to_s.must_equal('<h4>1234567890</h4>')
       @h5.to_s.must_equal('<h5><b>how bold</b></h5>')
+      @h6.to_s.must_equal('<h6></h6>')
       @ul.to_s.must_equal('<ul><li>1</li><li>2</li><li>3</li></ul>')
     end
 

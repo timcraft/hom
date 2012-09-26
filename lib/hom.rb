@@ -24,12 +24,12 @@ module HOM
   end
 
   class Element
-    def initialize(tag_name, attributes = nil, content = nil)
+    def initialize(tag_name, attributes = nil, content = Undefined)
       @tag_name, @attributes, @content = tag_name, AttributeList.new.update(attributes), content
     end
 
     def html
-      @content.nil? ? start_tag : "#{start_tag}#{encode(@content)}</#{@tag_name}>"
+      @content == Undefined ? start_tag : "#{start_tag}#{encode(@content)}</#{@tag_name}>"
     end
 
     def to_s
