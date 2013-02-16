@@ -1,5 +1,6 @@
-HOM: A straightforward API for generating HTML
-==============================================
+A straightforward API for generating HTML
+=========================================
+
 
 Motivation
 ----------
@@ -7,6 +8,23 @@ Motivation
 HOM helps you implement HTML presentation logic in your code. Things like
 navigation links, select boxes, sets of checkboxes; anything with behaviour
 that is too complex for your templates.
+
+
+Installation
+------------
+
+    $ gem install hom
+
+
+Quick start
+-----------
+
+```ruby
+require 'hom'
+
+puts HOM::Element.new(:h1, nil, 'hello world')
+```
+
 
 Usage
 -----
