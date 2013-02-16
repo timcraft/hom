@@ -1,6 +1,5 @@
 require 'minitest/autorun'
-
-require_relative '../lib/hom'
+require 'hom'
 
 describe 'Named entity' do
   before do
