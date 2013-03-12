@@ -29,7 +29,7 @@ puts HOM::Element.new(:h1, nil, 'hello world')
 Usage
 -----
 
-Build up an object tree using `HOM::Element` objects. The first constuctor
+Build up an object tree using `HOM::Element` objects. The first constructor
 argument is a symbol representing the tag name. For example, here's how you'd
 represent a line break element:
 
