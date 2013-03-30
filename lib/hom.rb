@@ -43,6 +43,38 @@ module HOM
     end
   end
 
+  class NodeList
+    def initialize(nodes)
+      @nodes = Array(nodes)
+    end
+
+    def to_s
+      Encoding.safe_encode(self)
+    end
+
+    def to_a
+      @nodes
+    end
+
+    def +(object)
+      self.class.new(@nodes + Array(object))
+    end
+
+    def join(separator)
+      Encoding.safe_encode(intersperse(separator, @nodes))
+    end
+
+    private
+
+    def intersperse(separator, array)
+      array.inject([]) do |tmp, item|
+        tmp << separator unless tmp.empty?
+        tmp << item
+        tmp
+      end
+    end
+  end
+
   class AttributeList
     def initialize
       @index = {}
@@ -80,6 +112,8 @@ module HOM
     def self.encode(object)
       if object.is_a?(Array)
         object.map { |item| encode(item) }.join
+      elsif object.is_a?(NodeList)
+        object.to_a.map { |item| encode(item) }.join
       elsif object.is_a?(Element)
         encode_element(object)
       elsif object.respond_to?(:html_safe?) && object.html_safe?
