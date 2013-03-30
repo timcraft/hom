@@ -1,5 +1,8 @@
-A straightforward API for generating HTML
-=========================================
+hom
+===
+
+
+A straightforward API for generating HTML.
 
 
 Motivation
@@ -26,12 +29,12 @@ puts HOM::Element.new(:h1, nil, 'hello world')
 ```
 
 
-Usage
------
+Using HOM::Element
+------------------
 
-Build up an object tree using `HOM::Element` objects. The first constructor
-argument is a symbol representing the tag name. For example, here's how you'd
-represent a line break element:
+Create instances of HOM::Element to represent DOM elements. The first
+constructor argument is a symbol representing the tag name. For example,
+you can represent a line break element like this:
 
 ```ruby
 HOM::Element.new(:br)
@@ -50,8 +53,8 @@ HOM::Element.new(:input, [{type: :text, size: 30}, :disabled])
 ```
 
 The third constructor argument is the inner content, which can be a string,
-another element object, or an array of child items. For example, here's how
-you can represent elements with attributes:
+another element object, or an array of child nodes. For example, here's how
+you can represent various elements with inner content:
 
 ```ruby
 span = HOM::Element.new(:span, nil, '')
@@ -65,16 +68,35 @@ link = HOM::Element.new(:a, {target: :_blank, href: '/'}, image)
 list = HOM::Element.new(:ul, nil, (1..3).map { |n| HOM::Element.new(:li, nil, n) })
 ```
 
-There's also a `HOM::Entity` class which you can use to represent HTML entities;
-integer values for numeric entities and symbol/string values for named entities,
+Calling #to_s on a HOM::Element object will return a string containing the
+generated HTML markup. HOM::Element objects are safe to use directly in Rails
+templates, all escaping is handled automatically.
+
+
+Using HOM::Entity
+-----------------
+
+Create instances of HOM::Entity to represent HTML entities. Use an integer
+argument for numeric entities and a symbol/string argument for named entities,
 for example:
 
 ```ruby
-HOM::Element.new(:span, nil, HOM::Entity.new(160))
+HOM::Entity.new(160)
 
-HOM::Element.new(:span, nil, HOM::Entity.new(:nbsp))
+HOM::Entity.new(:nbsp)
 ```
 
-Calling `#to_s` on a `HOM::Element` object will return a string containing
-the generated markup. `HOM::Element` objects are safe to use directly in
-Rails templates, all escaping is handled automatically.
+
+Using HOM::NodeList
+-------------------
+
+Use HOM::NodeList to group nodes together without having to wrap them in an
+outer element. For example:
+
+```ruby
+HOM::NodeList.new(['This is a ', HOM::Element.new(:strong, nil, 'Contrived'), ' example'])
+```
+
+Calling #to_s on a HOM::NodeList object will return a string containing the
+generated HTML markup. Calling #join will insert separator nodes, a bit like
+Array#join, but returning HTML safe output.
