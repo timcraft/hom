@@ -9,7 +9,6 @@ Gem::Specification.new do |s|
   s.summary = 'See description'
   s.files = Dir.glob('{lib,spec}/**/*') + %w(Rakefile README.md hom.gemspec)
   s.add_development_dependency('rake', '~> 10.0.3')
-  s.add_development_dependency('mocha', '~> 0.13.2')
   s.add_development_dependency('activesupport', ['>= 3.0.3'])
   s.require_path = 'lib'
 
