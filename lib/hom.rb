@@ -38,6 +38,10 @@ module HOM
       @content != Undefined
     end
 
+    def html_safe?
+      true
+    end
+
     def to_s
       Encoding.safe_encode(self)
     end
@@ -46,6 +50,10 @@ module HOM
   class NodeList
     def initialize(nodes)
       @nodes = Array(nodes)
+    end
+
+    def html_safe?
+      true
     end
 
     def to_s

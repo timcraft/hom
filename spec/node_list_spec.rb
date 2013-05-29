@@ -3,10 +3,9 @@ require 'active_support/core_ext/string/output_safety'
 require 'hom'
 
 describe 'HOM::NodeList' do
-  describe 'to_a method' do
-    it 'returns the array of nodes passed to the constructor' do
-      nodes = HOM::NodeList.new(%w(a b c))
-      nodes.to_a.must_equal(%w(a b c))
+  describe 'html_safe query method' do
+    it 'returns true' do
+      HOM::NodeList.new([]).html_safe?.must_equal(true)
     end
   end
 
@@ -17,6 +16,13 @@ describe 'HOM::NodeList' do
       output = nodes.to_s
       output.must_equal('Hello&nbsp;<b>World</b>')
       output.html_safe?.must_equal(true)
+    end
+  end
+
+  describe 'to_a method' do
+    it 'returns the array of nodes passed to the constructor' do
+      nodes = HOM::NodeList.new(%w(a b c))
+      nodes.to_a.must_equal(%w(a b c))
     end
   end
 
