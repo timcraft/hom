@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require 'mocha/setup'
+require 'active_support/core_ext/string/output_safety'
 require 'hom'
 
 describe 'HOM::Element' do
@@ -20,12 +20,10 @@ describe 'HOM::Element' do
   end
 
   describe 'to_s method' do
-    it 'safely encodes itself using the encoding module' do
-      element = HOM::Element.new(:br)
-
-      HOM::Encoding.expects(:safe_encode).with(element)
-
-      element.to_s
+    it 'returns an html safe string containing the encoded element' do
+      output = HOM::Element.new(:br).to_s
+      output.html_safe?.must_equal(true)
+      output.must_equal('<br>')
     end
   end
 end
