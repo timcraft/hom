@@ -1,3 +1,16 @@
+# [v1.3.0](https://github.com/timcraft/hom/tree/v1.3.0) (2013-06-10) [e2138a6](https://github.com/timcraft/hom/commit/e2138a6f523b4be11e512fe813edbbd0131c40bf)
+
+  * HOM::NodeList#join now returns a new node list
+
+  * Added plus method to HOM::Element
+
+  * Added plus method to HOM::Entity
+
+# [v1.2.0](https://github.com/timcraft/hom/tree/v1.2.0) (2013-05-29) [f0c32bb](https://github.com/timcraft/hom/commit/f0c32bb04a05bbf4028d637c7eecfe967ee17aa3)
+
+  * Added html_safe? methods to HOM::Element and HOM::NodeList for
+    compatibility with [erubis-auto](https://github.com/timcraft/erubis-auto)
+
 # [v1.1.0](https://github.com/timcraft/hom/tree/v1.1.0) (2013-03-30) [b8ed642](https://github.com/timcraft/hom/commit/b8ed642cf60c72bc0cdf0ae9e312b4d6e304e251)
 
   * Added HOM::NodeList class
