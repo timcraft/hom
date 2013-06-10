@@ -69,7 +69,7 @@ module HOM
     end
 
     def join(separator)
-      Encoding.safe_encode(intersperse(separator, @nodes))
+      self.class.new(intersperse(separator, @nodes))
     end
 
     private

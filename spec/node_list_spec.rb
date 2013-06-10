@@ -45,10 +45,10 @@ describe 'HOM::NodeList' do
   end
 
   describe 'join method' do
-    it 'returns an html safe string containing the encoded nodes seperated by the argument' do
-      output = HOM::NodeList.new(%w(a b c)).join(HOM::Entity.new(:nbsp))
-      output.html_safe?.must_equal(true)
-      output.must_equal('a&nbsp;b&nbsp;c')
+    it 'returns a new node list containing the items in the list seperated by the given node' do
+      nodes = HOM::NodeList.new(%w(a b c)).join(HOM::Entity.new(:nbsp))
+      nodes.must_be_instance_of(HOM::NodeList)
+      nodes.to_s.must_equal('a&nbsp;b&nbsp;c')
     end
   end
 end
