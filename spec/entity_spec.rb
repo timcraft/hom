@@ -35,6 +35,14 @@ describe 'HOM::Entity initialized with a symbol' do
       @entity.html_safe?.must_equal(true)
     end
   end
+
+  describe 'addition of an entity with another object' do
+    it 'returns a node list containing the two nodes' do
+      nodes = HOM::Entity.new(:pound) + '9.99'
+      nodes.must_be_instance_of(HOM::NodeList)
+      nodes.to_s.must_equal('&pound;9.99')
+    end
+  end
 end
 
 describe 'HOM::Entity initialized with an integer' do

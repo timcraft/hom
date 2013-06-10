@@ -25,6 +25,10 @@ module HOM
     def html_safe?
       true
     end
+
+    def +(object)
+      NodeList.new([self, object])
+    end
   end
 
   class Element
