@@ -1,38 +1,54 @@
 require 'minitest/autorun'
 require 'hom'
 
-describe 'HOM::Entity initialized with a symbol' do
+describe 'HOM::Entity' do
   before do
-    @entity = HOM::Entity.new(:nbsp)
+    @named_entity = HOM::Entity.new(:nbsp)
+
+    @numeric_entity = HOM::Entity.new(160)
   end
 
   describe 'value method' do
-    it 'returns the symbol value' do
-      @entity.value.must_equal(:nbsp)
+    it 'returns the value passed to the constructor' do
+      @named_entity.value.must_equal(:nbsp)
+
+      @numeric_entity.value.must_equal(160)
     end
   end
 
   describe 'numeric query method' do
-    it 'returns false' do
-      @entity.numeric?.must_equal(false)
+    it 'returns false for named entities' do
+      @named_entity.numeric?.must_equal(false)
+    end
+
+    it 'returns true for numeric entities' do
+      @numeric_entity.numeric?.must_equal(true)
     end
   end
 
   describe 'named query method' do
-    it 'returns true' do
-      @entity.named?.must_equal(true)
+    it 'returns true for named entities' do
+      @named_entity.named?.must_equal(true)
+    end
+
+    it 'returns false for numeric entities' do
+      @numeric_entity.named?.must_equal(false)
     end
   end
 
   describe 'to_s method' do
     it 'returns the encoded html entity' do
-      @entity.to_s.must_equal('&nbsp;')
+      @named_entity.to_s.must_equal('&nbsp;')
+
+      @numeric_entity.to_s.must_equal('&#160;')
     end
   end
 
   describe 'html_safe query method' do
     it 'returns true' do
-      @entity.html_safe?.must_equal(true)
+      @named_entity.html_safe?.must_equal(true)
+
+      @numeric_entity.html_safe?.must_equal(true)
     end
   end
 
@@ -41,42 +57,6 @@ describe 'HOM::Entity initialized with a symbol' do
       nodes = HOM::Entity.new(:pound) + '9.99'
       nodes.must_be_instance_of(HOM::NodeList)
       nodes.to_s.must_equal('&pound;9.99')
-    end
-  end
-end
-
-describe 'HOM::Entity initialized with an integer' do
-  before do
-    @entity = HOM::Entity.new(160)
-  end
-
-  describe 'value method' do
-    it 'returns the integer value' do
-      @entity.value.must_equal(160)
-    end
-  end
-
-  describe 'numeric query method' do
-    it 'returns true' do
-      @entity.numeric?.must_equal(true)
-    end
-  end
-
-  describe 'named query method' do
-    it 'returns false' do
-      @entity.named?.must_equal(false)
-    end
-  end
-
-  describe 'to_s method' do
-    it 'returns the encoded html entity' do
-      @entity.to_s.must_equal('&#160;')
-    end
-  end
-
-  describe 'html_safe query method' do
-    it 'returns true' do
-      @entity.html_safe?.must_equal(true)
     end
   end
 end
