@@ -1,5 +1,10 @@
 require 'minitest/autorun'
-require 'hom'
+
+if defined? require_relative
+  require_relative '../lib/hom'
+else
+  require File.join(File.dirname(__FILE__), '../lib/hom')
+end
 
 describe 'HOM::Entity' do
   before do

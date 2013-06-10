@@ -1,6 +1,11 @@
 require 'minitest/autorun'
 require 'active_support/core_ext/string/output_safety'
-require 'hom'
+
+if defined? require_relative
+  require_relative '../lib/hom'
+else
+  require File.join(File.dirname(__FILE__), '../lib/hom')
+end
 
 describe 'HOM::NodeList' do
   describe 'html_safe query method' do
