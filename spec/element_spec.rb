@@ -26,4 +26,12 @@ describe 'HOM::Element' do
       output.must_equal('<br>')
     end
   end
+
+  describe 'addition of an element with another object' do
+    it 'returns a node list containing the two nodes' do
+      nodes = HOM::Element.new(:br) + "\n"
+      nodes.must_be_instance_of(HOM::NodeList)
+      nodes.to_s.must_equal("<br>\n")
+    end
+  end
 end

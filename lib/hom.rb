@@ -45,6 +45,10 @@ module HOM
     def to_s
       Encoding.safe_encode(self)
     end
+
+    def +(object)
+      NodeList.new([self, object])
+    end
   end
 
   class NodeList
