@@ -100,3 +100,38 @@ HOM::NodeList.new(['This is a ', HOM::Element.new(:strong, nil, 'Contrived'), ' 
 Calling #to_s on a HOM::NodeList object will return a string containing the
 generated HTML markup. Calling #join will insert separator nodes, a bit like
 Array#join, but returning HTML safe output.
+
+
+XSS 101
+-------
+
+Do you have helper methods that look like this:
+
+```ruby
+def user_name(user)
+  "<strong>#{user.name}</strong>".html_safe
+end
+```
+
+Bzzzt, that's a security vulnerability right there. If you're using Rails
+you should have code that looks like this:
+
+```ruby
+def user_name(user)
+  content_tag(:strong, user.name)
+end
+```
+
+The content_tag helper will automatically escape content not explicitly
+marked as safe. HOM will do very much the same thing, the equivalent helper
+method would look like this:
+
+```ruby
+def user_name(user)
+  HOM::Element.new(:strong, nil, user.name)
+end
+```
+
+Moral of the story: building up fragments of HTML using string interpolation
+and concatenation is highly error prone. Solution: use content_tag or HOM to
+safely build your content, and audit your usage of html_safe.
