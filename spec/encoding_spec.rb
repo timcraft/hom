@@ -1,11 +1,7 @@
 require 'minitest/autorun'
-require 'active_support/core_ext/string/output_safety'
 
-if defined? require_relative
-  require_relative '../lib/hom'
-else
-  require File.join(File.dirname(__FILE__), '../lib/hom')
-end
+require_relative '../lib/hom'
+require 'active_support/core_ext/string/output_safety'
 
 describe 'HOM::Encoding' do
   describe 'encode method' do
@@ -24,21 +20,13 @@ describe 'HOM::Encoding' do
     it 'renders elements with a hash of attributes' do
       element = HOM::Element.new(:input, {:type => :text, :size => 30, :value => nil})
 
-      output = HOM::Encoding.encode(element)
-      output.must_match(/<input .+>/)
-      output.must_include(' type="text"')
-      output.must_include(' size="30"')
-      output.must_include(' value=""')
+      HOM::Encoding.encode(element).must_equal('<input type="text" size="30" value="">')
     end
 
     it 'renders elements with an array of mixed attributes' do
       element = HOM::Element.new(:input, [{:type => :text, :size => 30}, :disabled])
 
-      output = HOM::Encoding.encode(element)
-      output.must_match(/<input .+>/)
-      output.must_include(' type="text"')
-      output.must_include(' size="30"')
-      output.must_include(' disabled')
+      HOM::Encoding.encode(element).must_equal('<input type="text" size="30" disabled>')
     end
 
     it 'renders elements with empty content' do

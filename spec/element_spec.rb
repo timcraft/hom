@@ -1,11 +1,7 @@
 require 'minitest/autorun'
-require 'active_support/core_ext/string/output_safety'
 
-if defined? require_relative
-  require_relative '../lib/hom'
-else
-  require File.join(File.dirname(__FILE__), '../lib/hom')
-end
+require_relative '../lib/hom'
+require 'active_support/core_ext/string/output_safety'
 
 describe 'HOM::Element' do
   describe 'content query method' do

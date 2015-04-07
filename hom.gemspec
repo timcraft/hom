@@ -8,11 +8,8 @@ Gem::Specification.new do |s|
   s.description = 'A straightforward API for generating HTML'
   s.summary = 'See description'
   s.files = Dir.glob('{lib,spec}/**/*') + %w(Rakefile README.md CHANGES.md hom.gemspec)
-  s.add_development_dependency('rake', '~> 10.0.3')
-  s.add_development_dependency('activesupport', ['~> 3.0'])
+  s.add_development_dependency('rake', '~> 10')
+  s.add_development_dependency('activesupport', '~> 3.0')
+  s.add_development_dependency('minitest', '~> 5')
   s.require_path = 'lib'
-
-  if RUBY_VERSION == '1.8.7'
-    s.add_development_dependency('minitest', '>= 4.2.0')
-  end
 end
