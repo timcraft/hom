@@ -1,26 +1,22 @@
-hom
-===
+# hom
 
 
 A straightforward API for generating HTML.
 
 
-Motivation
-----------
+## Motivation
 
 HOM helps you implement HTML presentation logic in your code. Things like
 navigation links, select boxes, sets of checkboxes; anything with behaviour
 that is too complex for your templates.
 
 
-Installation
-------------
+## Installation
 
     $ gem install hom
 
 
-Quick start
------------
+## Quick start
 
 ```ruby
 require 'hom'
@@ -29,8 +25,7 @@ puts HOM::Element.new(:h1, nil, 'hello world')
 ```
 
 
-Using HOM::Element
-------------------
+## Using HOM::Element
 
 Create instances of HOM::Element to represent DOM elements. The first
 constructor argument is a symbol representing the tag name. For example,
@@ -73,8 +68,7 @@ generated HTML markup. HOM::Element objects are safe to use directly in Rails
 templates, all escaping is handled automatically.
 
 
-Using HOM::Entity
------------------
+## Using HOM::Entity
 
 Create instances of HOM::Entity to represent HTML entities. Use an integer
 argument for numeric entities and a symbol/string argument for named entities,
@@ -87,8 +81,7 @@ HOM::Entity.new(:nbsp)
 ```
 
 
-Using HOM::NodeList
--------------------
+## Using HOM::NodeList
 
 Use HOM::NodeList to group nodes together without having to wrap them in an
 outer element. For example:
@@ -102,8 +95,7 @@ generated HTML markup. Calling #join will insert separator nodes, a bit like
 Array#join, but returning HTML safe output.
 
 
-XSS 101
--------
+## XSS 101
 
 Do you have helper methods that look like this:
 
