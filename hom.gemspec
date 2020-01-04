@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/timcraft/hom'
   s.description = 'A straightforward API for generating HTML'
   s.summary = 'See description'
-  s.files = Dir.glob('{lib,spec}/**/*') + %w(LICENSE.txt Rakefile README.md CHANGES.md hom.gemspec)
+  s.files = Dir.glob('lib/**/*.rb') + %w(LICENSE.txt README.md CHANGES.md hom.gemspec)
   s.required_ruby_version = '>= 1.9.3'
   s.require_path = 'lib'
 end
