@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'minitest/global_expectations'
 require 'active_support/core_ext/string/output_safety'
 
 require_relative '../lib/hom'
