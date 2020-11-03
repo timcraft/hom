@@ -11,4 +11,10 @@ Gem::Specification.new do |s|
   s.files = Dir.glob('lib/**/*.rb') + %w(LICENSE.txt README.md CHANGES.md hom.gemspec)
   s.required_ruby_version = '>= 1.9.3'
   s.require_path = 'lib'
+  s.metadata = {
+    'homepage' => 'https://github.com/timcraft/hom',
+    'source_code_uri' => 'https://github.com/timcraft/hom',
+    'bug_tracker_uri' => 'https://github.com/timcraft/hom/issues',
+    'changelog_uri' => 'https://github.com/timcraft/hom/blob/main/CHANGES.md'
+  }
 end
