@@ -1,56 +1,59 @@
-require 'minitest/autorun'
-require 'minitest/global_expectations'
-require 'active_support/core_ext/string/output_safety'
+require 'spec_helper'
 
-require_relative '../lib/hom'
-
-describe 'HOM::NodeList' do
-  describe 'html_safe query method' do
+RSpec.describe HOM::NodeList do
+  describe '#html_safe?' do
     it 'returns true' do
-      HOM::NodeList.new([]).html_safe?.must_equal(true)
+      expect(HOM::NodeList.new([]).html_safe?).to eq(true)
     end
   end
 
-  describe 'to_s method' do
+  describe '#to_s' do
     it 'returns an html safe string containing the encoded nodes' do
       nodes = HOM::NodeList.new(['Hello', HOM::Entity.new(:nbsp), HOM::Element.new(:b, nil, 'World')])
 
       output = nodes.to_s
-      output.must_equal('Hello&nbsp;<b>World</b>')
-      output.html_safe?.must_equal(true)
+
+      expect(output).to eq('Hello&nbsp;<b>World</b>')
+      expect(output.html_safe?).to eq(true)
     end
   end
 
-  describe 'to_a method' do
+  describe '#to_a' do
     it 'returns the array of nodes passed to the constructor' do
       nodes = HOM::NodeList.new(%w(a b c))
-      nodes.to_a.must_equal(%w(a b c))
+
+      expect(nodes.to_a).to eq(%w(a b c))
     end
   end
 
-  describe 'addition of two node lists' do
-    it 'returns a new node list containing the items in each list' do
-      nodes = HOM::NodeList.new(['one']) + HOM::NodeList.new(['two'])
-      nodes.must_be_instance_of(HOM::NodeList)
-      nodes.to_a.must_equal(%w(one two))
+  describe '#+' do
+    context 'with another node list object' do
+      it 'returns a new node list containing the items in each list' do
+        nodes = HOM::NodeList.new(['one']) + HOM::NodeList.new(['two'])
+
+        expect(nodes).to be_instance_of(HOM::NodeList)
+        expect(nodes.to_a).to eq(%w(one two))
+      end
+    end
+
+    context 'with an element object' do
+      it 'returns a new node list containing the items in the list and the additional element' do
+        element = HOM::Element.new(:b, nil, 'World')
+
+        nodes = HOM::NodeList.new(['Hello', HOM::Entity.new(:nbsp)]) + element
+
+        expect(nodes).to be_instance_of(HOM::NodeList)
+        expect(nodes.to_s).to eq('Hello&nbsp;<b>World</b>')
+      end
     end
   end
 
-  describe 'addition of a node list with an element object' do
-    it 'returns a new node list containing the items in the list and the additional element' do
-      element = HOM::Element.new(:b, nil, 'World')
-
-      nodes = HOM::NodeList.new(['Hello', HOM::Entity.new(:nbsp)]) + element
-      nodes.must_be_instance_of(HOM::NodeList)
-      nodes.to_s.must_equal('Hello&nbsp;<b>World</b>')
-    end
-  end
-
-  describe 'join method' do
+  describe '#join' do
     it 'returns a new node list containing the items in the list seperated by the given node' do
       nodes = HOM::NodeList.new(%w(a b c)).join(HOM::Entity.new(:nbsp))
-      nodes.must_be_instance_of(HOM::NodeList)
-      nodes.to_s.must_equal('a&nbsp;b&nbsp;c')
+
+      expect(nodes).to be_instance_of(HOM::NodeList)
+      expect(nodes.to_s).to eq('a&nbsp;b&nbsp;c')
     end
   end
 end
