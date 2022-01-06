@@ -1,6 +1,6 @@
 # hom
 
-[![Gem Version](https://badge.fury.io/rb/hom.svg)](https://badge.fury.io/rb/hom) [![Build Status](https://api.travis-ci.org/timcraft/hom.svg?branch=master)](https://travis-ci.org/timcraft/hom)
+[![Gem Version](https://badge.fury.io/rb/hom.svg)](https://badge.fury.io/rb/hom) [![Test Status](https://github.com/timcraft/hom/actions/workflows/test.yml/badge.svg)](https://github.com/timcraft/hom/actions/workflows/test.yml)
 
 
 A straightforward API for generating HTML.
